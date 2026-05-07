@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paulo Costa – Método Minp</title>
+  <link rel="icon" href="https://minp.paulocosta.com.br/wp-content/uploads/2023/10/selo23.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #d4a017;
+      --gold-light: #f0c842;
+      --dark: #0c0c0c;
+      --dark2: #141414;
+      --dark3: #1a1a1a;
+      --text: #e8e8e8;
+      --text-muted: #a0a0a0;
+      --accent: #c8960a;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1200 60%, #0a0a0a 100%);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 80px 8% 40px;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(212,160,23,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-text { z-index: 1; }
+    .hero-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-list {
+      list-style: none;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hero-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .hero-list li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .btn-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #000;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 18px 48px;
+      border-radius: 4px;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(212,160,23,0.4);
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-cta:hover {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      box-shadow: 0 12px 40px rgba(212,160,23,0.6);
+      transform: translateY(-2px);
+    }
+    .hero-image {
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .hero-image img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 60px rgba(212,160,23,0.25));
+    }
+    section { padding: 80px 8%; }
+    .section-tag {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 40px;
+    }
+    .section-title span { color: var(--gold); }
+    .section-center { text-align: center; }
+    .para-quem { background: var(--dark2); }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .card-item {
+      background: var(--dark3);
+      border: 1px solid rgba(212,160,23,0.15);
+      border-radius: 8px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .card-item:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(212,160,23,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.5rem;
+    }
+    .card-item p { font-size: 0.9rem; line-height: 1.5; color: var(--text-muted); }
+    .testimonials { background: var(--dark); }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin-top: 20px;
+    }
+    .testi-card {
+      background: var(--dark2);
+      border: 1px solid rgba(212,160,23,0.12);
+      border-radius: 10px;
+      padding: 32px 28px;
+      position: relative;
+    }
+    .testi-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 12px;
+      left: 20px;
+      font-size: 5rem;
+      color: var(--gold);
+      opacity: 0.25;
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+    .testi-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #000;
+      margin-bottom: 16px;
+    }
+    .testi-name { font-weight: 700; color: #fff; margin-bottom: 4px; font-size: 0.95rem; }
+    .testi-role { font-size: 0.8rem; color: var(--gold); margin-bottom: 16px; }
+    .testi-text { font-size: 0.9rem; line-height: 1.65; color: var(--text-muted); font-style: italic; }
+    .beneficios { background: var(--dark2); }
+    .beneficios-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .beneficios-list { display: flex; flex-direction: column; gap: 16px; }
+    .beneficio-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--dark3);
+      border: 1px solid rgba(212,160,23,0.1);
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      padding: 16px 20px;
+      transition: border-color 0.3s;
+    }
+    .beneficio-item:hover { border-color: var(--gold-light); }
+    .beneficio-icon {
+      width: 40px; height: 40px;
+      background: rgba(212,160,23,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .beneficio-text { font-size: 0.9rem; line-height: 1.55; color: var(--text); }
+    .beneficios-image img { width: 100%; border-radius: 12px; box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
+    .stats { background: #0a0a0a; }
+    .stats-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .stats-text p { font-size: 0.92rem; line-height: 1.75; color: var(--text-muted); margin-bottom: 20px; border-left: 3px solid rgba(212,160,23,0.3); padding-left: 16px; }
+    .stats-text p strong { color: var(--gold); }
+    .stat-numbers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+    .stat-box { background: var(--dark3); border: 1px solid rgba(212,160,23,0.2); border-radius: 8px; padding: 20px 16px; text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 900; color: var(--gold); }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+    .pilares { background: var(--dark2); }
+    .pilares-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 20px; }
+    .pilar-card { background: var(--dark); border: 1px solid rgba(212,160,23,0.12); border-radius: 10px; padding: 32px 28px; transition: border-color 0.3s, transform 0.3s; }
+    .pilar-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .pilar-num { font-size: 0.7rem; font-weight: 800; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+    .pilar-title { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 14px; }
+    .pilar-desc { font-size: 0.87rem; line-height: 1.65; color: var(--text-muted); }
+    .mentor { background: var(--dark); }
+    .mentor-layout { display: grid; grid-template-columns: 400px 1fr; gap: 60px; align-items: center; }
+    .mentor-photo img { width: 100%; border-radius: 12px; box-shadow: 0 20px 60px rgba(212,160,23,0.2); }
+    .mentor-text h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 900; color: #fff; margin-bottom: 24px; line-height: 1.2; }
+    .mentor-text h2 span { color: var(--gold); }
+    .mentor-text p { font-size: 0.95rem; line-height: 1.75; color: var(--text-muted); margin-bottom: 20px; }
+    .mentor-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+    .badge { background: rgba(212,160,23,0.12); border: 1px solid rgba(212,160,23,0.3); color: var(--gold); padding: 8px 16px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+    .cta-final { background: linear-gradient(135deg, #0a0800, #1a1200, #0a0a0a); text-align: center; padding: 100px 8%; position: relative; overflow: hidden; }
+    .cta-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(212,160,23,0.1) 0%, transparent 70%); }
+    .cta-final h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; color: #fff; margin-bottom: 16px; position: relative; z-index: 1; }
+    .cta-final h2 span { color: var(--gold); }
+    .cta-final p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 40px; position: relative; z-index: 1; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-final .btn-cta { position: relative; z-index: 1; font-size: 1.1rem; padding: 22px 64px; }
+    footer { background: #060606; padding: 40px 8%; text-align: center; border-top: 1px solid rgba(212,160,23,0.1); }
+    footer p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 60px; }
+      .hero-image { order: -1; }
+      .hero-image img { max-height: 50vh; }
+      .beneficios-layout, .stats-layout, .mentor-layout { grid-template-columns: 1fr; gap: 40px; }
+      .mentor-photo { max-width: 320px; margin: 0 auto; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 60px 5%; }
+      .hero { padding: 60px 5% 40px; }
+    }
+  </style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">Método MINP</div>
+    <h1>Desbloqueie suas crenças sobre dinheiro e <span>atinja o máximo do seu potencial financeiro.</span></h1>
+    <ul class="hero-list">
+      <li>Quite suas dívidas e organize sua vida financeira de uma vez por todas.</li>
+      <li>Cresça sua empresa gerando lucro e tendo tempo para saúde e sua família.</li>
+      <li>Metodologia aplicada e validada por mais de 230 mentorados.</li>
+      <li>Recupere-se de crises e adversidades e dê a volta por cima.</li>
+    </ul>
+    <a href="https://payfast.greenn.com.br/31184/offer/ZGJFMH" class="btn-cta" target="_blank">ENTRAR AGORA</a>
+  </div>
+  <div class="hero-image">
+    <img src="https://minp.paulocosta.com.br/wp-content/uploads/2024/04/Group-1227.png" alt="Paulo Costa – Método MINP" />
+  </div>
+</section>
+<section class="para-quem">
+  <div class="section-center">
+    <span class="section-tag">É para você?</span>
+    <h2 class="section-title">Para quem é o <span>Método MINP?</span></h2>
+  </div>
+  <div class="cards-grid">
+    <div class="card-item"><div class="card-icon">💸</div><p>Não sobra dinheiro no final do mês</p></div>
+    <div class="card-item"><div class="card-icon">🏦</div><p>Não consegue criar uma reserva financeira</p></div>
+    <div class="card-item"><div class="card-icon">📈</div><p>Não consegue construir patrimônio</p></div>
+    <div class="card-item"><div class="card-icon">🔓</div><p>Não consegue alcançar a independência e liberdade financeira</p></div>
+    <div class="card-item"><div class="card-icon">🤝</div><p>Tem dificuldade de dizer “NÃO” e ajuda mais o próximo que a sua família</p></div>
+    <div class="card-item"><div class="card-icon">❓</div><p>Não sabe com o que gastou o dinheiro</p></div>
+  </div>
+</section>
+<section class="testimonials">
+  <div class="section-center">
+    <span class="section-tag">Resultados reais</span>
+    <h2 class="section-title">O que dizem nossos <span>mentorados</span></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-avatar">LC</div><div class="testi-name">Luana Canal</div><div class="testi-role">Empresária &amp; Arquiteta</div><p class="testi-text">“Ela conquistou o Pró labore dos sonhos após a mentoria”</p></div>
+    <div class="testi-card"><div class="testi-avatar">ML</div><div class="testi-name">Marlon Lovatti</div><div class="testi-role">Empreendedor &amp; Gestor Comercial</div><p class="testi-text">“Quero dizer que este processo mudou a vida da minha família”</p></div>
+    <div class="testi-card"><div class="testi-avatar">JG</div><div class="testi-name">Juçara Galiza</div><div class="testi-role">Mestre em Pesquisas</div><p class="testi-text">“Ela foi de auxiliar a mestranda após tomar essa decisão…”</p></div>
+  </div>
+</section>
+<section class="beneficios">
+  <div class="beneficios-layout">
+    <div>
+      <span class="section-tag">Conheça todos os</span>
+      <h2 class="section-title">Benefícios do <span>Método MINP</span></h2>
+      <div class="beneficios-list">
+        <div class="beneficio-item"><div class="beneficio-icon">🧠</div><p class="beneficio-text">Desbloquear crenças negativas sobre dinheiro e liberar seu potencial financeiro.</p></div>
+        <div class="beneficio-item"><div class="beneficio-icon">🚀</div><p class="beneficio-text">Expandir seus negócios e chegar a patamares mais altos de sucesso.</p></div>
+        <div class="beneficio-item"><div class="beneficio-icon">⚡</div><p class="beneficio-text">Mais produtividade nos seus negócios e suas finanças.</p></div>
+        <div class="beneficio-item"><div class="beneficio-icon">💡</div><p class="beneficio-text">Trabalhar menos, de forma inteligente e gerar mais riqueza.</p></div>
+        <div class="beneficio-item"><div class="beneficio-icon">🔄</div><p class="beneficio-text">Como se recuperar de crises, adversidades, quebras e dar a volta por cima.</p></div>
+      </div>
+    </div>
+    <div class="beneficios-image"><img src="https://minp.paulocosta.com.br/wp-content/uploads/2024/04/Group-1227.png" alt="Paulo Costa" /></div>
+  </div>
+</section>
+<section class="stats">
+  <div class="stats-layout">
+    <div>
+      <span class="section-tag">Esses são problemas reais</span>
+      <h2 class="section-title">Diversas pesquisas apontam que esse problema afeta <span>milhares de profissionais no Brasil</span></h2>
+      <div class="stat-numbers">
+        <div class="stat-box"><div class="stat-num">39%</div><div class="stat-label">dos profissionais da saúde reclamam de baixa remuneração</div></div>
+        <div class="stat-box"><div class="stat-num">74,5%</div><div class="stat-label">acreditam que a remuneração não é justa</div></div>
+        <div class="stat-box"><div class="stat-num">29,8%</div><div class="stat-label">dos médicos se sentem aptos a gerir o próprio dinheiro</div></div>
+        <div class="stat-box"><div class="stat-num">78,5%</div><div class="stat-label">das famílias brasileiras estão endividadas</div></div>
+      </div>
+    </div>
+    <div class="stats-text">
+      <p>Uma pesquisa feita em 2022 pela Ayfa Research Center apontou que <strong>39% dos profissionais da saúde</strong> se queixam de baixa remuneração.</p>
+      <p>A mesma pesquisa aponta que <strong>74,5% dos profissionais</strong> considera que a remuneração atual não é justa.</p>
+      <p>Apenas <strong>29,8% dos médicos</strong> no Brasil se consideram completamente aptos a administrar o próprio dinheiro.</p>
+      <p>Somente <strong>24,4% dos médicos</strong> conseguiriam se manter por 6 meses sem trabalhar em caso de emergência.</p>
+      <p>Segundo o Mapa da Inadimplência do Brasil (Serasa, 2023), o país contava com <strong>71,45 milhões de brasileiros</strong> inadimplentes.</p>
+    </div>
+  </div>
+</section>
+<section class="pilares">
+  <div class="section-center">
+    <span class="section-tag">O método MINP é</span>
+    <h2 class="section-title">Formado por <span>06 Pilares</span></h2>
+  </div>
+  <div class="pilares-grid">
+    <div class="pilar-card"><div class="pilar-num">1° Pilar</div><div class="pilar-title">Identificando o seu Momento Atual</div><p class="pilar-desc">Diagnóstico profundo das 08 principais áreas da vida. As áreas com CAOS serão tratadas, trazendo resultados positivos quase imediatos.</p></div>
+    <div class="pilar-card"><div class="pilar-num">2° Pilar</div><div class="pilar-title">Visualização Positiva</div><p class="pilar-desc">Conheça as 09 chaves que destravam o sucesso profissional e pessoal. Defina seus reais objetivos, sonhos e metas para o futuro.</p></div>
+    <div class="pilar-card"><div class="pilar-num">3° Pilar</div><div class="pilar-title">Identidade Interior</div><p class="pilar-desc">Pilar de autoconhecimento para descobrir seus verdadeiros princípios, qualidades e valores. Potencialize o melhor em você para melhores decisões.</p></div>
+    <div class="pilar-card"><div class="pilar-num">4° Pilar</div><div class="pilar-title">Revelando a Dinheirofobia</div><p class="pilar-desc">Explore as camadas mais profundas da personalidade para identificar sua crença limitante sobre dinheiro.</p></div>
+    <div class="pilar-card"><div class="pilar-num">5° Pilar</div><div class="pilar-title">Mente Inteligente</div><p class="pilar-desc">Descubra como realizar a mudança de crença. Transforme uma crença limitante em possibilitadora para realizar seus sonhos.</p></div>
+    <div class="pilar-card"><div class="pilar-num">6° Pilar</div><div class="pilar-title">Rota da Prosperidade</div><p class="pilar-desc">Com a crença limitante substituída, você estará pronto para traçar um plano completo para alcançar tudo que deseja.</p></div>
+  </div>
+</section>
+<section class="mentor">
+  <div class="mentor-layout">
+    <div class="mentor-photo"><img src="https://minp.paulocosta.com.br/wp-content/uploads/2024/04/Group-1227.png" alt="Paulo Costa" /></div>
+    <div class="mentor-text">
+      <span class="section-tag">Quem é seu mentor?</span>
+      <h2>Paulo Costa – <span>Especialista em Mentalidade Financeira</span></h2>
+      <p>Paulo Costa, autor de 03 livros, é especialista em mentalidade financeira há mais de 20 anos.</p>
+      <p>Em sua trajetória já ajudou o Banco Banestes, Vale, Correios, entre outras grandes empresas no Brasil.</p>
+      <p>Já mentorou milhares de pessoas, empresários e empreendedores no Brasil e no exterior.</p>
+      <p>O propósito do Paulo é fazer pessoas que se conectam com ele ativarem o máximo do seu potencial financeiro.</p>
+      <div class="mentor-badges">
+        <span class="badge">📚 3 Livros Publicados</span>
+        <span class="badge">👥 +230 Mentorados</span>
+        <span class="badge">⏱️ +20 Anos de Experiência</span>
+        <span class="badge">🏢 Grandes Empresas</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta-final">
+  <h2>Desbloqueie suas crenças negativas sobre o dinheiro e <span>atinja o máximo do seu potencial financeiro!</span></h2>
+  <p>Junte-se a mais de 230 mentorados que já transformaram suas vidas financeiras com o Método MINP.</p>
+  <a href="https://payfast.greenn.com.br/31184/offer/ZGJFMH" class="btn-cta" target="_blank">ENTRAR AGORA</a>
+</section>
+<footer>
+  <p>© 2024 Paulo Costa – Método MINP. Todos os direitos reservados.</p>
+</footer>
+</body>
+</html>
